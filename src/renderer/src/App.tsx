@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap'
 import { UsuarioDTO } from './dto/usuario.dto'
 
 function App(): JSX.Element {
@@ -8,7 +9,13 @@ function App(): JSX.Element {
     password: '123',
   }
   console.log(usuario)
-  return <div className="container"></div>
+  return (
+    <div className="container">
+      <Button variant="danger" className="btn-app-primary">
+        Hello World
+      </Button>
+    </div>
+  )
 }
 
 export default App

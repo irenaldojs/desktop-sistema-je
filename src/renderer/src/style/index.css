@@ -1,0 +1,28 @@
+:root {
+  --primary-color: #962b4b;
+  --primary-color-hover: #6f2138;
+  --secondary-color: #84967e;
+  --third-color: #f05d67;
+  --fourth-color: #becb7c;
+  --background-color: #faa191;
+  --text-color: #333;
+  --text-color-light: #eee;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-app-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: var(--primary-color);
+}
+
+.btn-app-primary:hover {
+  background-color: var(--primary-color-hover);
+  color: var(--text-color-light);
+}
