@@ -1,19 +1,11 @@
-import { Button } from 'react-bootstrap'
-import { UsuarioDTO } from './dto/usuario.dto'
+import Content from './components/Content'
+import Sidebar from './components/Sidebar'
 
 function App(): JSX.Element {
-  const usuario: UsuarioDTO = {
-    nome: 'Lucas',
-    telefone: '123',
-    email: 'lucas@lucas',
-    password: '123',
-  }
-  console.log(usuario)
   return (
     <div className="container">
-      <Button variant="danger" className="btn-app-primary">
-        Hello World
-      </Button>
+      <Sidebar />
+      <Content>Olá</Content>
     </div>
   )
 }

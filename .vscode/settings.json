@@ -15,8 +15,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
-  "workbench.colorTheme": "One Dark Pro",
+  "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "vscode-icons",
-  "editor.fontFamily": "Fira Code",
   "editor.fontLigatures": true
 }
