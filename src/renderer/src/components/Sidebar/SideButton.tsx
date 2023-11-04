@@ -1,12 +1,18 @@
+import { TabType, useSidebar } from '@renderer/store/SideBarStore'
+
 type SideButtonProps = {
   icon: JSX.Element
-  title: string
-  select?: boolean
+  title: TabType
 }
 
-function SideButton({ icon, title, select }: SideButtonProps): JSX.Element {
+function SideButton({ icon, title }: SideButtonProps): JSX.Element {
+  const [tab, changeTab] = useSidebar((state) => [state.tab, state.changeTab])
+
   return (
-    <button className={`btn-sidebar btn-secondary ${select && 'active'}`}>
+    <button
+      className={`btn-sidebar btn-secondary ${tab == title && 'active'}`}
+      onClick={(): void => changeTab(title)}
+    >
       {icon}
       <span> {title} </span>
     </button>

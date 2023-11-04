@@ -10,7 +10,7 @@ import IconTeam from '@renderer/assets/icons/IconTeam'
 function Sidebar(): JSX.Element {
   return (
     <aside className="sidebar">
-      <SideButton title="Principal" icon={<IconHome />} select={true} />
+      <SideButton title="Principal" icon={<IconHome />} />
       <SideButton title="Relatórios" icon={<IconChart />} />
       <SideButton title="Entrada" icon={<IconTruckSide />} />
       <SideButton title="Venda" icon={<IconCart />} />
