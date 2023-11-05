@@ -1,4 +1,4 @@
-import { TabType, useSidebar } from '@renderer/store/SideBarStore'
+import { TabType, useSidebar } from '@renderer/store/sidebarStore'
 
 type SideButtonProps = {
   icon: JSX.Element

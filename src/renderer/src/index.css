@@ -30,7 +30,7 @@ card {
   padding: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   font-size: 1rem;
   font-weight: bold;
 }
@@ -57,7 +57,7 @@ card {
 
 .btn-primary:active,
 .btn-secondary:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 
 .container {

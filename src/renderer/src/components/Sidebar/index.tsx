@@ -1,6 +1,6 @@
 import IconTruckSide from '@renderer/assets/icons/IconTruckSide'
 import SideButton from './SideButton'
-import './Sidebar.css'
+import './sidebar.css'
 import IconHome from '@renderer/assets/icons/IconHome'
 import IconBoxes from '@renderer/assets/icons/IconBoxes'
 import IconChart from '@renderer/assets/icons/IconChart'

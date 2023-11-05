@@ -1,12 +1,18 @@
 .content {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  padding: 5px;
+  padding: 10px;
 }
 
 .main-content {
-  background-color: white;
   border-radius: 5px;
-  padding: 5px;
-  height: 50%;
-  border: 1px solid gray;
+  padding: 10px;
+  flex: 1;
+}
+
+.main-title {
+  font-weight: bold;
+  font-size: 2rem;
+  padding: 10px;
 }
