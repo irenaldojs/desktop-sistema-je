@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material'
 import './content.css'
 
 type ContentProps = {
@@ -7,10 +8,12 @@ type ContentProps = {
 
 function Content({ children, title }: ContentProps): JSX.Element {
   return (
-    <div className="content">
-      <div className="main-title">{title}</div>
+    <Box flex="flex" flexDirection="row" width="100%" height="100%">
+      <Typography variant="h2" align="center" fontStyle={'italic'}>
+        {title}
+      </Typography>
       <div className="main-content">{children}</div>
-    </div>
+    </Box>
   )
 }
 

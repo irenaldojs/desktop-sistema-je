@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "Irenaldo Jr",
+  "homepage": "https://github.com/irenaldojs",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -22,8 +22,14 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.17",
     "@prisma/client": "^5.5.2",
     "electron-updater": "^6.1.1",
+    "install": "^0.13.0",
     "react-router-dom": "^6.18.0",
     "zustand": "^4.4.6"
   },

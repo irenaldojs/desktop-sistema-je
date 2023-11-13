@@ -1,5 +1,7 @@
+import { Box } from '@mui/material'
+
 function Entrada(): JSX.Element {
-  return <div>Entrada</div>
+  return <Box>Entrada</Box>
 }
 
 export default Entrada

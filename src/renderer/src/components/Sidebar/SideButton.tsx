@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material'
 import { TabType, useSidebar } from '@renderer/store/sidebarStore'
 
 type SideButtonProps = {
@@ -9,13 +10,24 @@ function SideButton({ icon, title }: SideButtonProps): JSX.Element {
   const [tab, changeTab] = useSidebar((state) => [state.tab, state.changeTab])
 
   return (
-    <button
-      className={`btn-sidebar btn-secondary ${tab == title && 'active'}`}
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      position="relative"
+      width="100%"
+      height="60px"
+      paddingBottom="15px"
+      className={`btn-sidebar ` + (tab === title ? 'active' : '')}
       onClick={(): void => changeTab(title)}
+      sx={{ cursor: 'pointer' }}
     >
       {icon}
-      <span> {title} </span>
-    </button>
+      <Typography variant="caption" position="absolute" bottom="4px">
+        {title}
+      </Typography>
+    </Box>
   )
 }
 

@@ -15,6 +15,8 @@ function createWindow(): void {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
     },
+    icon: icon,
+    title: 'Sistema JE',
   })
 
   mainWindow.on('ready-to-show', () => {

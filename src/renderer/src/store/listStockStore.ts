@@ -3,14 +3,16 @@ import { create } from 'zustand'
 
 type ListStockType = {
   produtos: ProdutoDTO[]
-  buscarDescricao: (descricao: string) => void
+  busca: 'Código' | 'Descricão'
+  buscarProduto: (chamada: string) => void
+  mudarBusca: (busca: 'Código' | 'Descricão') => void
 }
 
 const mock: ProdutoDTO[] = [
   {
     id: 1,
     descricao: 'teste',
-    codigoOriginal: 'teste',
+    codigoOriginal: 'teste1',
     marca: 'teste',
     precoVenda: 1,
     precoCusto: 1,
@@ -22,7 +24,7 @@ const mock: ProdutoDTO[] = [
   {
     id: 2,
     descricao: 'produto',
-    codigoOriginal: 'produto',
+    codigoOriginal: 'produto2',
     marca: 'produto',
     precoVenda: 1,
     precoCusto: 1,
@@ -34,7 +36,7 @@ const mock: ProdutoDTO[] = [
   {
     id: 3,
     descricao: 'produto 2',
-    codigoOriginal: 'produto',
+    codigoOriginal: 'produto3',
     marca: 'produto',
     precoVenda: 1,
     precoCusto: 1,
@@ -47,9 +49,19 @@ const mock: ProdutoDTO[] = [
 
 export const useListStock = create<ListStockType>((set) => ({
   produtos: [],
-  buscarDescricao: (descricao: string): void =>
-    set(() => ({
-      produtos:
-        descricao == '' ? [] : mock.filter((p) => p.descricao && p.descricao.includes(descricao)),
-    })),
+  busca: 'Código',
+  buscarProduto: (chamada: string): void => {
+    set((state) => {
+      return {
+        ...state,
+        produtos:
+          chamada === ''
+            ? []
+            : state.busca === 'Código'
+            ? mock.filter((p) => p.codigoOriginal?.includes(chamada.toLocaleLowerCase()))
+            : mock.filter((p) => p.descricao?.includes(chamada.toLocaleLowerCase())),
+      }
+    })
+  },
+  mudarBusca: (busca: 'Código' | 'Descricão'): void => set(() => ({ busca: busca })),
 }))

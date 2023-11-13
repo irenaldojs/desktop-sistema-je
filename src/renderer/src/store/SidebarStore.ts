@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type TabType = 'Principal' | 'Relatórios' | 'Entrada' | 'Venda' | 'Revendedores' | 'Estoque'
+export type TabType = 'Principal' | 'Relatórios' | 'Entrada' | 'Venda' | 'Equipe' | 'Estoque'
 
 type SidebarStoreType = {
   tab: TabType
