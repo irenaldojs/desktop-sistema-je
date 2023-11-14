@@ -8,7 +8,7 @@ type ContentProps = {
 
 function Content({ children, title }: ContentProps): JSX.Element {
   return (
-    <Box flex="flex" flexDirection="row" width="100%" height="100%">
+    <Box flex="flex" flexDirection="row" width="100%" height="100%" paddingX={2}>
       <Typography variant="h2" align="center" fontStyle={'italic'}>
         {title}
       </Typography>

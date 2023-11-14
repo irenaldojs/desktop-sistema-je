@@ -25,7 +25,7 @@ model Produto {
   descricao      String?
   codigoOriginal String?
   marca          String?
-  precoVenda     Float
+  precoVenda     Float?
   precoCusto     Float?
   tamanho        String?
   cor            String?
@@ -40,7 +40,7 @@ model ProdutoItem {
   produto   Produto @relation(fields: [produtoId], references: [id])
   produtoId Int
 
-  quantidade Int
+  quantidade Int @default(1)
 
   saidaProduto   SaidaProduto? @relation(fields: [saidaProdutoId], references: [id])
   saidaProdutoId Int?
@@ -54,7 +54,9 @@ model EntradaProduto {
   data      DateTime? @default(now())
   usuario   Usuario   @relation(fields: [usuarioId], references: [id])
   usuarioId Int
-  operacao  String?   @default("COMPRA")
+
+  total    Float
+  operacao String? @default("COMPRA")
 
   Fornecedor   Fornecedor? @relation(fields: [fornecedorId], references: [id])
   fornecedorId Int?
@@ -66,9 +68,9 @@ model EntradaProduto {
 }
 
 model Fornecedor {
-  id       Int    @id @default(autoincrement())
-  nome     String
-  telefone String
+  id       Int     @id @default(autoincrement())
+  nome     String?
+  telefone String?
 
   endereco   Endereco @relation(fields: [enderecoId], references: [id])
   enderecoId Int
@@ -89,12 +91,12 @@ model Cliente {
 }
 
 model Endereco {
-  id     Int    @id @default(autoincrement())
-  rua    String
-  numero Int
-  bairro String
-  cidade String
-  estado String
+  id     Int     @id @default(autoincrement())
+  rua    String?
+  numero Int?
+  bairro String?
+  cidade String?
+  estado String?
 
   Fornecedores Fornecedor[]
   Revendedores Revendedor[]
@@ -109,7 +111,7 @@ model SaidaProduto {
   usuarioId Int
 
   total    Float
-  operacao String
+  operacao String @default("VENDA")
 
   Cliente   Cliente? @relation(fields: [clienteId], references: [id])
   clienteId Int?

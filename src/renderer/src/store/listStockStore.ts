@@ -1,67 +1,67 @@
-import { ProdutoDTO } from '@renderer/dto/produto.dto'
+import { Produto } from '@prisma/client'
+import { prisma } from '@renderer/lib/prisma'
 import { create } from 'zustand'
 
 type ListStockType = {
-  produtos: ProdutoDTO[]
+  produtos: Produto[] | []
   busca: 'Código' | 'Descricão'
-  buscarProduto: (chamada: string) => void
+  buscarDescricao: (requisito: string) => Promise<void>
+  buscarCodigo: (requisito: string) => Promise<void>
   mudarBusca: (busca: 'Código' | 'Descricão') => void
 }
 
-const mock: ProdutoDTO[] = [
-  {
-    id: 1,
-    descricao: 'teste',
-    codigoOriginal: 'teste1',
-    marca: 'teste',
-    precoVenda: 1,
-    precoCusto: 1,
-    tamanho: 'teste',
-    cor: 'teste',
-    local: 'teste',
-    estoque: 1,
-  },
-  {
-    id: 2,
-    descricao: 'produto',
-    codigoOriginal: 'produto2',
-    marca: 'produto',
-    precoVenda: 1,
-    precoCusto: 1,
-    tamanho: 'produto',
-    cor: 'produto',
-    local: 'produto',
-    estoque: 1,
-  },
-  {
-    id: 3,
-    descricao: 'produto 2',
-    codigoOriginal: 'produto3',
-    marca: 'produto',
-    precoVenda: 1,
-    precoCusto: 1,
-    tamanho: 'produto',
-    cor: 'produto',
-    local: 'produto',
-    estoque: 1,
-  },
-]
+async function fetchPrismaStockCode(requisito: string): Promise<Produto[]> {
+  console.log(requisito)
+
+  try {
+    const produtos = await prisma.produto.findMany({
+      where: {
+        OR: [
+          {
+            codigoOriginal: {
+              contains: requisito,
+            },
+          },
+          {
+            descricao: {
+              contains: requisito,
+            },
+          },
+        ],
+      },
+    })
+    return produtos
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+async function fetchPrismaStockDescription(requisito: string): Promise<Produto[]> {
+  try {
+    const produtos = await prisma.produto.findMany({
+      where: {
+        descricao: {
+          contains: requisito,
+        },
+      },
+    })
+    return produtos
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
 
 export const useListStock = create<ListStockType>((set) => ({
   produtos: [],
   busca: 'Código',
-  buscarProduto: (chamada: string): void => {
-    set((state) => {
-      return {
-        ...state,
-        produtos:
-          chamada === ''
-            ? []
-            : state.busca === 'Código'
-            ? mock.filter((p) => p.codigoOriginal?.includes(chamada.toLocaleLowerCase()))
-            : mock.filter((p) => p.descricao?.includes(chamada.toLocaleLowerCase())),
-      }
-    })
+  buscarDescricao: async (requisito): Promise<void> => {
+    const produtos = await fetchPrismaStockDescription(requisito.toLocaleLowerCase())
+    set({ produtos: produtos })
+  },
+  buscarCodigo: async (requisito): Promise<void> => {
+    const produtos = await fetchPrismaStockCode(requisito.toLocaleLowerCase())
+    set({ produtos: produtos })
   },
   mudarBusca: (busca: 'Código' | 'Descricão'): void => set(() => ({ busca: busca })),
 }))

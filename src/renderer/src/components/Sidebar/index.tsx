@@ -20,14 +20,14 @@ function Sidebar(): JSX.Element {
       bgcolor="var(--secondary-color)"
       color="var(--text-color-light)"
       alignItems="center"
-      paddingLeft="5px"
+      paddingLeft="3px"
       gap="1px"
     >
       <Avatar
         src={logoPNG}
         variant="circular"
         alt="logo"
-        sx={{ width: 55, height: 55, mt: 2, mb: 2, mr: 0.5 }}
+        sx={{ width: 60, height: 55, mt: 2, mb: 2, mr: 0.5 }}
       />
       <SideButton title="Principal" icon={<HomeRounded />} />
       <SideButton title="Relatórios" icon={<LeaderboardRounded />} />

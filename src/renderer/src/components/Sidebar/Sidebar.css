@@ -1,7 +1,7 @@
 .btn-sidebar {
   transition: all 0.2s ease;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   background-color: var(--secondary-color);
   color: var(--text-color-light);
 }
@@ -10,11 +10,11 @@
 }
 
 .btn-sidebar svg {
-  font-size: 3rem;
+  font-size: 2.5rem;
   transition: all 0.1s ease;
 }
 .btn-sidebar:active svg {
-  font-size: 2.3rem;
+  font-size: 2rem;
 }
 .active,
 .active:hover {

@@ -1,4 +1,4 @@
-import { Box, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
+import { Box } from '@mui/material'
 import { useListStock } from '@renderer/store/listStockStore'
 import { useEffect, useRef, useState } from 'react'
 import { SearchRounded } from '@mui/icons-material'
@@ -6,9 +6,10 @@ import { SearchRounded } from '@mui/icons-material'
 function SearchStockBar(): JSX.Element {
   const inputRef = useRef(null)
   const [requisito, setRequisito] = useState('')
-  const [tipoBusca, buscarProduto, mudarBusca] = useListStock((state) => [
+  const [tipoBusca, buscarDescricao, buscarCodigo, mudarBusca] = useListStock((state) => [
     state.busca,
-    state.buscarProduto,
+    state.buscarDescricao,
+    state.buscarCodigo,
     state.mudarBusca,
   ])
 
@@ -29,29 +30,25 @@ function SearchStockBar(): JSX.Element {
   }, [])
 
   function handleSubmit(): void {
-    buscarProduto(requisito)
+    if (tipoBusca === 'Código') buscarCodigo(requisito)
+    if (tipoBusca === 'Descricão') buscarDescricao(requisito)
   }
 
   return (
-    <Box display="flex" flexDirection="row" alignItems="center" justifyContent="start" gap={1}>
-      <Box display="flex" flexDirection="column" width={'50%'} position={'relative'}>
-        <SearchRounded
-          fontSize="medium"
-          sx={{ position: 'absolute', bottom: '5px', left: '5px' }}
-        />
-        <label className="label-input-search">{tipoBusca}</label>
-        <input
-          ref={inputRef}
-          className="input-search"
-          value={requisito}
-          onChange={(e): void => setRequisito(e.target.value.toLocaleUpperCase())}
-          onKeyDown={(e): void => {
-            e.key === 'Enter' && handleSubmit()
-          }}
-          type="text"
-          placeholder="F9 - Código | F10 - Descricão"
-        />
-      </Box>
+    <Box display="flex" flexDirection="column" width={'50%'} position={'relative'}>
+      <SearchRounded fontSize="medium" sx={{ position: 'absolute', bottom: '5px', left: '5px' }} />
+      <label className="label-input-search">{tipoBusca}</label>
+      <input
+        ref={inputRef}
+        className="input-search"
+        value={requisito}
+        onChange={(e): void => setRequisito(e.target.value.toLocaleUpperCase())}
+        onKeyDown={(e): void => {
+          e.key === 'Enter' && handleSubmit()
+        }}
+        type="text"
+        placeholder="F9 - Código | F10 - Descricão"
+      />
     </Box>
   )
 }

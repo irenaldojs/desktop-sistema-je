@@ -16,15 +16,15 @@ function SideButton({ icon, title }: SideButtonProps): JSX.Element {
       alignItems="center"
       justifyContent="center"
       position="relative"
-      width="100%"
-      height="60px"
-      paddingBottom="15px"
+      width="65px"
+      height="65px"
+      paddingBottom="20px"
       className={`btn-sidebar ` + (tab === title ? 'active' : '')}
       onClick={(): void => changeTab(title)}
       sx={{ cursor: 'pointer' }}
     >
       {icon}
-      <Typography variant="caption" position="absolute" bottom="4px">
+      <Typography position="absolute" bottom="3px" sx={{ fontSize: '0.75rem', fontWeight: 'bold' }}>
         {title}
       </Typography>
     </Box>
