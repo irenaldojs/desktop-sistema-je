@@ -1,13 +1,15 @@
 import { Box, Typography } from '@mui/material'
-import { TabType, useSidebar } from '@renderer/store/sidebarStore'
+import { TabsType, useNavigationApp } from '@renderer/store/navigatorStore'
+import { useNavigate } from 'react-router-dom'
 
 type SideButtonProps = {
   icon: JSX.Element
-  title: TabType
+  title: TabsType
 }
 
 function SideButton({ icon, title }: SideButtonProps): JSX.Element {
-  const [tab, changeTab] = useSidebar((state) => [state.tab, state.changeTab])
+  const { tabAtual, setTabAtual } = useNavigationApp()
+  const navigate = useNavigate()
 
   return (
     <Box
@@ -19,8 +21,8 @@ function SideButton({ icon, title }: SideButtonProps): JSX.Element {
       width="65px"
       height="65px"
       paddingBottom="20px"
-      className={`btn-sidebar ` + (tab === title ? 'active' : '')}
-      onClick={(): void => changeTab(title)}
+      className={`btn-sidebar ` + (tabAtual === title ? 'active' : '')}
+      onClick={(): void => navigate(setTabAtual(title))}
       sx={{ cursor: 'pointer' }}
     >
       {icon}

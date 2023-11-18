@@ -1,8 +1,9 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import { PrismaClient } from '@prisma/client'
 
 declare global {
   interface Window {
     electron: ElectronAPI
-    api: unknown
+    api: { prisma: PrismaClient }
   }
 }

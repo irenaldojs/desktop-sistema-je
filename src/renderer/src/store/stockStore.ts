@@ -1,33 +1,23 @@
 import { Produto } from '@prisma/client'
-import { prisma } from '@renderer/lib/prisma'
 import { create } from 'zustand'
 
-type ListStockType = {
+type StockType = {
+  editarProdutoItem: Produto | null
   produtos: Produto[] | []
   busca: 'Código' | 'Descricão'
   buscarDescricao: (requisito: string) => Promise<void>
   buscarCodigo: (requisito: string) => Promise<void>
   mudarBusca: (busca: 'Código' | 'Descricão') => void
+  editarProduto: (produto: Produto) => void
 }
 
 async function fetchPrismaStockCode(requisito: string): Promise<Produto[]> {
-  console.log(requisito)
-
   try {
-    const produtos = await prisma.produto.findMany({
+    const produtos = await window.api.prisma.produto.findMany({
       where: {
-        OR: [
-          {
-            codigoOriginal: {
-              contains: requisito,
-            },
-          },
-          {
-            descricao: {
-              contains: requisito,
-            },
-          },
-        ],
+        codigoOriginal: {
+          contains: requisito,
+        },
       },
     })
     return produtos
@@ -38,7 +28,7 @@ async function fetchPrismaStockCode(requisito: string): Promise<Produto[]> {
 }
 async function fetchPrismaStockDescription(requisito: string): Promise<Produto[]> {
   try {
-    const produtos = await prisma.produto.findMany({
+    const produtos = await window.api.prisma.produto.findMany({
       where: {
         descricao: {
           contains: requisito,
@@ -52,7 +42,8 @@ async function fetchPrismaStockDescription(requisito: string): Promise<Produto[]
   }
 }
 
-export const useListStock = create<ListStockType>((set) => ({
+export const useStock = create<StockType>((set) => ({
+  editarProdutoItem: null,
   produtos: [],
   busca: 'Código',
   buscarDescricao: async (requisito): Promise<void> => {
@@ -64,4 +55,5 @@ export const useListStock = create<ListStockType>((set) => ({
     set({ produtos: produtos })
   },
   mudarBusca: (busca: 'Código' | 'Descricão'): void => set(() => ({ busca: busca })),
+  editarProduto: (produto: Produto): void => set(() => ({ editarProdutoItem: produto })),
 }))

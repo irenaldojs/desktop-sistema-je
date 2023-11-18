@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,8 +22,8 @@ model Produto {
   descricao      String?
   codigoOriginal String?
   marca          String?
-  precoVenda     Float?
-  precoCusto     Float?
+  precoVenda     Int?
+  precoCusto     Int?
   tamanho        String?
   cor            String?
   local          String?
@@ -35,102 +32,82 @@ model Produto {
 }
 
 model ProdutoItem {
-  id Int @id @default(autoincrement())
-
-  produto   Produto @relation(fields: [produtoId], references: [id])
-  produtoId Int
-
-  quantidade Int @default(1)
-
-  saidaProduto   SaidaProduto? @relation(fields: [saidaProdutoId], references: [id])
-  saidaProdutoId Int?
-
-  entradaProduto   EntradaProduto? @relation(fields: [entradaProdutoId], references: [id])
+  id               Int             @id @default(autoincrement())
+  produtoId        Int
+  quantidade       Int             @default(1)
+  saidaProdutoId   Int?
   entradaProdutoId Int?
+  entradaProduto   EntradaProduto? @relation(fields: [entradaProdutoId], references: [id])
+  saidaProduto     SaidaProduto?   @relation(fields: [saidaProdutoId], references: [id])
+  produto          Produto         @relation(fields: [produtoId], references: [id])
 }
 
 model EntradaProduto {
-  id        Int       @id @default(autoincrement())
-  data      DateTime? @default(now())
-  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
-  usuarioId Int
-
-  total    Float
-  operacao String? @default("COMPRA")
-
-  Fornecedor   Fornecedor? @relation(fields: [fornecedorId], references: [id])
-  fornecedorId Int?
-
-  Revendedores   Revendedor? @relation(fields: [revendedoresId], references: [id])
+  id             Int           @id @default(autoincrement())
+  data           DateTime?     @default(now())
+  usuarioId      Int
+  total          Int
+  operacao       String?       @default("COMPRA")
+  fornecedorId   Int?
   revendedoresId Int?
-
-  items ProdutoItem[]
+  Revendedores   Revendedor?   @relation(fields: [revendedoresId], references: [id])
+  Fornecedor     Fornecedor?   @relation(fields: [fornecedorId], references: [id])
+  usuario        Usuario       @relation(fields: [usuarioId], references: [id])
+  items          ProdutoItem[]
 }
 
 model Fornecedor {
-  id       Int     @id @default(autoincrement())
-  nome     String?
-  telefone String?
-
-  endereco   Endereco @relation(fields: [enderecoId], references: [id])
+  id         Int              @id @default(autoincrement())
+  nome       String?
+  telefone   String?
   enderecoId Int
-
-  entradas EntradaProduto[]
+  entradas   EntradaProduto[]
+  endereco   Endereco         @relation(fields: [enderecoId], references: [id])
 }
 
 model Cliente {
-  id       Int      @id @default(autoincrement())
-  data     DateTime @default(now())
-  telefone String?
-  email    String?
-
-  endereco   Endereco @relation(fields: [enderecoId], references: [id])
+  id         Int            @id @default(autoincrement())
+  data       DateTime       @default(now())
+  telefone   String?
+  email      String?
   enderecoId Int
-
-  compras SaidaProduto[]
+  endereco   Endereco       @relation(fields: [enderecoId], references: [id])
+  compras    SaidaProduto[]
 }
 
 model Endereco {
-  id     Int     @id @default(autoincrement())
-  rua    String?
-  numero Int?
-  bairro String?
-  cidade String?
-  estado String?
-
+  id           Int          @id @default(autoincrement())
+  rua          String?
+  numero       Int?
+  bairro       String?
+  cidade       String?
+  estado       String?
+  Clientes     Cliente[]
   Fornecedores Fornecedor[]
   Revendedores Revendedor[]
-  Clientes     Cliente[]
 }
 
 model SaidaProduto {
-  id   Int      @id @default(autoincrement())
-  data DateTime @default(now())
-
-  usuario   Usuario @relation(fields: [usuarioId], references: [id])
-  usuarioId Int
-
-  total    Float
-  operacao String @default("VENDA")
-
-  Cliente   Cliente? @relation(fields: [clienteId], references: [id])
-  clienteId Int?
-
-  Revendedores   Revendedor? @relation(fields: [revendedoresId], references: [id])
+  id             Int           @id @default(autoincrement())
+  data           DateTime      @default(now())
+  usuarioId      Int
+  total          Int?
+  operacao       String        @default("VENDA")
+  clienteId      Int?
   revendedoresId Int?
-
-  items ProdutoItem[]
+  items          ProdutoItem[]
+  Revendedores   Revendedor?   @relation(fields: [revendedoresId], references: [id])
+  Cliente        Cliente?      @relation(fields: [clienteId], references: [id])
+  usuario        Usuario       @relation(fields: [usuarioId], references: [id])
 }
 
 model Revendedor {
-  id       Int      @id @default(autoincrement())
-  data     DateTime @default(now())
-  telefone String?
-  email    String?
-
-  endereco   Endereco @relation(fields: [enderecoId], references: [id])
+  id         Int              @id @default(autoincrement())
+  data       DateTime         @default(now())
+  telefone   String?
+  email      String?
   enderecoId Int
-
-  reposicao SaidaProduto[]
-  devolucao EntradaProduto[]
+  devolucao  EntradaProduto[]
+  endereco   Endereco         @relation(fields: [enderecoId], references: [id])
+  reposicao  SaidaProduto[]
 }

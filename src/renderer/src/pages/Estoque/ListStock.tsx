@@ -12,7 +12,8 @@ import {
   tableCellClasses,
 } from '@mui/material'
 import { Produto } from '@prisma/client'
-import { useListStock } from '@renderer/store/listStockStore'
+import { DbToFront } from '@renderer/lib/convertMoney'
+import { useStockStore } from '@renderer/store/stockStore'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,22 +38,38 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }))
 
 function ListStock(): JSX.Element {
-  const produtos = useListStock((state) => state.produtos)
+  const produtos = useStockStore((state) => state.produtos)
 
   return (
     <TableContainer sx={{ borderRadius: 2 }}>
       <Table component={Paper} size="small" sx={{ borderCollapse: 'separate' }}>
         <TableHead>
           <TableRow>
-            <StyledTableCell sx={{ width: '10%', borderRight: 1 }}>Código</StyledTableCell>
-            <StyledTableCell sx={{ width: '30%', borderRight: 1 }}>Descricão</StyledTableCell>
-            <StyledTableCell sx={{ width: '5%', borderRight: 1 }}>Estoque</StyledTableCell>
-            <StyledTableCell sx={{ width: '10%', borderRight: 1 }}>Marca</StyledTableCell>
-            <StyledTableCell sx={{ width: '5%', borderRight: 1 }}>Tamanho</StyledTableCell>
-            <StyledTableCell sx={{ width: '10%', borderRight: 1 }}>Cor</StyledTableCell>
-            <StyledTableCell sx={{ width: '10%', borderRight: 1 }}>Preço</StyledTableCell>
-            <StyledTableCell sx={{ width: '10%', borderRight: 1 }}>Local</StyledTableCell>
-            <StyledTableCell></StyledTableCell>
+            <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
+              Código
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '30%', borderRight: 1 }} align="center">
+              Descricão
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
+              Marca
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '5%', borderRight: 1 }} align="center">
+              Tamanho
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
+              Cor
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
+              Local
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '5%', borderRight: 1 }} align="center">
+              Estoque
+            </StyledTableCell>
+            <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
+              Preço
+            </StyledTableCell>
+            <StyledTableCell>Editar</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,9 +77,6 @@ function ListStock(): JSX.Element {
             <StyledTableRow key={p.id}>
               <StyledTableCell sx={{ borderRight: 1 }}>{p.codigoOriginal}</StyledTableCell>
               <StyledTableCell sx={{ borderRight: 1 }}>{p.descricao}</StyledTableCell>
-              <StyledTableCell sx={{ borderRight: 1 }} align="right">
-                {p.estoque}
-              </StyledTableCell>
               <StyledTableCell sx={{ borderRight: 1 }} align="center">
                 {p.marca}
               </StyledTableCell>
@@ -73,9 +87,14 @@ function ListStock(): JSX.Element {
                 {p.cor}
               </StyledTableCell>
               <StyledTableCell sx={{ borderRight: 1 }} align="right">
-                {p.precoVenda}
+                {p.local}
               </StyledTableCell>
-              <StyledTableCell sx={{ borderRight: 1 }}>{p.local}</StyledTableCell>
+              <StyledTableCell sx={{ borderRight: 1 }} align="right">
+                {p.estoque}
+              </StyledTableCell>
+              <StyledTableCell sx={{ borderRight: 1 }} align="right">
+                {p.precoVenda && DbToFront(p.precoVenda)}
+              </StyledTableCell>
               <StyledTableCell>
                 <Button color="secondary" variant="contained" size="small">
                   <Edit fontSize="small" />

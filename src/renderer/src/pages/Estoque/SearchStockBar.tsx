@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { useListStock } from '@renderer/store/listStockStore'
+import { useListStock } from '@renderer/store/stockStore'
 import { useEffect, useRef, useState } from 'react'
 import { SearchRounded } from '@mui/icons-material'
 
@@ -26,7 +26,6 @@ function SearchStockBar(): JSX.Element {
         if (inputRef && inputRef.current) (inputRef.current as HTMLInputElement).focus()
       }
     })
-    console.log('chamando')
   }, [])
 
   function handleSubmit(): void {
