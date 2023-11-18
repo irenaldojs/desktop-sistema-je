@@ -8,7 +8,7 @@ type StockType = {
   buscarDescricao: (requisito: string) => Promise<void>
   buscarCodigo: (requisito: string) => Promise<void>
   mudarBusca: (busca: 'Código' | 'Descricão') => void
-  editarProduto: (produto: Produto) => void
+  editarProduto: (produto: Produto | null) => void
 }
 
 async function fetchPrismaStockCode(requisito: string): Promise<Produto[]> {
@@ -42,7 +42,7 @@ async function fetchPrismaStockDescription(requisito: string): Promise<Produto[]
   }
 }
 
-export const useStock = create<StockType>((set) => ({
+export const useStockStore = create<StockType>((set) => ({
   editarProdutoItem: null,
   produtos: [],
   busca: 'Código',
@@ -55,5 +55,5 @@ export const useStock = create<StockType>((set) => ({
     set({ produtos: produtos })
   },
   mudarBusca: (busca: 'Código' | 'Descricão'): void => set(() => ({ busca: busca })),
-  editarProduto: (produto: Produto): void => set(() => ({ editarProdutoItem: produto })),
+  editarProduto: (produto: Produto | null): void => set(() => ({ editarProdutoItem: produto })),
 }))

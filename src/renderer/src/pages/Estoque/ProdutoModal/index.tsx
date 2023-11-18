@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography, styled } from '@mui/material'
+import { Box, Button, TextField, styled } from '@mui/material'
 import { FrontToDb } from '@renderer/lib/convertMoney'
 import { NumericFormatCustom } from '@renderer/lib/masks'
 import { useStockStore } from '@renderer/store/stockStore'
@@ -15,12 +15,12 @@ const StyledTextField = styled(TextField)({
     color: 'black',
   },
   '& .MuiInput-underline:after': {
-    //border: 'none',
     borderBottomColor: 'var(--secondary-color)',
   },
   '& .MuiFilledInput-root': {
     '& fieldset': {
       borderColor: 'var(--secondary-color)',
+      fontWeight: 'bold',
     },
     '&:hover fieldset': {
       borderColor: 'var(--secondary-color)',
@@ -34,22 +34,14 @@ const StyledTextField = styled(TextField)({
     fontSize: '0.9rem',
     fontStyle: 'italic',
   },
+  '& .MuiInputBase-input': {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
 })
-
-const styleModal = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'background.default',
-  border: '1px solid #000',
-  borderRadius: '10px',
-  p: 4,
-}
 function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
   const [newItem, setNewItem] = useState(false)
-  const { editarProdutoItem, editarProduto } = useStockStore()
+  const { editarProdutoItem } = useStockStore()
 
   const [codigoOriginal, setCodigoOriginal] = useState('')
   const [codigoOriginalError, setCodigoOriginalError] = useState('')
@@ -68,7 +60,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
   useEffect(() => {
     if (editarProdutoItem) {
       editarProdutoItem.codigoOriginal && setCodigoOriginal(editarProdutoItem.codigoOriginal)
-      editarProdutoItem.precoVenda && setPrecoVenda(editarProdutoItem.precoVenda)
+      editarProdutoItem.precoVenda && setPrecoVenda(editarProdutoItem.precoVenda / 100)
       editarProdutoItem.descricao && setDescricao(editarProdutoItem.descricao)
       editarProdutoItem.marca && setMarca(editarProdutoItem.marca)
       editarProdutoItem.tamanho && setTamanho(editarProdutoItem.tamanho)
@@ -162,11 +154,9 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
   }
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} alignItems={'center'} sx={styleModal}>
-      <Typography id="modal-novo-produto" variant="h5">
-        Novo Produto
-      </Typography>
+    <>
       <Box
+        id="modal-product-description"
         component="form"
         noValidate
         display={'flex'}
@@ -180,7 +170,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           label="Codigo Original"
           variant="filled"
           sx={{ width: '49%' }}
-          onChange={(e): void => setCodigoOriginal(e.target.value)}
+          onChange={(e): void => setCodigoOriginal(e.target.value.toLocaleUpperCase())}
           value={codigoOriginal}
           error={codigoOriginalError !== ''}
           helperText={codigoOriginalError}
@@ -193,18 +183,18 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           onChange={(e): void => setPrecoVenda(e.target.value as unknown as number)}
           value={precoVenda}
           error={precoVendaError !== ''}
-          helperText={precoVendaError}
           InputProps={{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             inputComponent: NumericFormatCustom as any,
           }}
+          helperText={precoVendaError}
         />
         <StyledTextField
           id="descricao"
           label="Descricão"
           variant="filled"
           sx={{ width: '100%' }}
-          onChange={(e): void => setDescricao(e.target.value)}
+          onChange={(e): void => setDescricao(e.target.value.toLocaleUpperCase())}
           value={descricao}
           error={descricaoError !== ''}
           helperText={descricaoError}
@@ -214,7 +204,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           label="Marca"
           variant="filled"
           sx={{ width: '49%' }}
-          onChange={(e): void => setMarca(e.target.value)}
+          onChange={(e): void => setMarca(e.target.value.toLocaleUpperCase())}
           value={marca}
           error={marcaError !== ''}
           helperText={marcaError}
@@ -224,7 +214,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           label="Tamanho"
           variant="filled"
           sx={{ width: '49%' }}
-          onChange={(e): void => setTamanho(e.target.value)}
+          onChange={(e): void => setTamanho(e.target.value.toLocaleUpperCase())}
           value={tamanho}
           error={tamanhoError !== ''}
           helperText={tamanhoError}
@@ -234,7 +224,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           label="Cor"
           variant="filled"
           sx={{ width: '49%' }}
-          onChange={(e): void => setCor(e.target.value)}
+          onChange={(e): void => setCor(e.target.value.toLocaleUpperCase())}
           value={cor}
           error={corError !== ''}
           helperText={corError}
@@ -244,7 +234,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           label="Local"
           variant="filled"
           sx={{ width: '49%' }}
-          onChange={(e): void => setLocal(e.target.value)}
+          onChange={(e): void => setLocal(e.target.value.toLocaleUpperCase())}
           value={local}
         />
       </Box>
@@ -263,7 +253,7 @@ function ProdutoModal(props: { handleClose: () => void }): JSX.Element {
           Cadastrar
         </Button>
       </Box>
-    </Box>
+    </>
   )
 }
 

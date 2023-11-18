@@ -1,12 +1,12 @@
 import { Box } from '@mui/material'
-import { useListStock } from '@renderer/store/stockStore'
+import { useStockStore } from '@renderer/store/stockStore'
 import { useEffect, useRef, useState } from 'react'
 import { SearchRounded } from '@mui/icons-material'
 
 function SearchStockBar(): JSX.Element {
   const inputRef = useRef(null)
   const [requisito, setRequisito] = useState('')
-  const [tipoBusca, buscarDescricao, buscarCodigo, mudarBusca] = useListStock((state) => [
+  const [tipoBusca, buscarDescricao, buscarCodigo, mudarBusca] = useStockStore((state) => [
     state.busca,
     state.buscarDescricao,
     state.buscarCodigo,
@@ -53,28 +53,3 @@ function SearchStockBar(): JSX.Element {
 }
 
 export default SearchStockBar
-
-/*
-
-<FormControl>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-          onChange={handleRadioChange}
-        >
-          <FormControlLabel
-            value="Código"
-            control={<Radio />}
-            label="F9 - Código"
-            checked={tipoBusca === 'Código'}
-          />
-          <FormControlLabel
-            value="Descricão"
-            control={<Radio />}
-            label="F10 - Descricão"
-            checked={tipoBusca === 'Descricão'}
-          />
-        </RadioGroup>
-      </FormControl>
-*/
