@@ -94,7 +94,7 @@ function ListStock(props: { handleOpen: () => void }): JSX.Element {
                 Estoque
               </StyledTableCell>
               <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
-                Preço
+                Preço R$
               </StyledTableCell>
               <StyledTableCell>Editar</StyledTableCell>
             </TableRow>

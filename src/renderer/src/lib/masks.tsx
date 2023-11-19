@@ -22,9 +22,8 @@ export const NumericFormatCustom = forwardRef<NumericFormatProps, CustomProps>(
             },
           })
         }}
-        thousandSeparator
+        decimalSeparator=","
         valueIsNumericString
-        prefix="R$ "
         decimalScale={2}
         fixedDecimalScale
       />
