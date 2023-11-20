@@ -1,14 +1,14 @@
-import { Box, Button, Modal, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import ListStock from './ListStock'
 import SearchStockBar from './SearchStockBar'
 import './style.css'
 import { AddBox } from '@mui/icons-material'
 import { useState } from 'react'
 import { useStockStore } from '@renderer/store/stockStore'
-import ProdutoModal from '@renderer/components/ProdutoModal'
+import ModalProduto from '@renderer/components/ModalProduto'
 
 function Estoque(): JSX.Element {
-  const { editarProduto } = useStockStore()
+  const { editarProduto, editarProdutoItem } = useStockStore()
   const [showModalProduto, setShowModalProduto] = useState(false)
 
   function handleOpen(): void {
@@ -16,8 +16,9 @@ function Estoque(): JSX.Element {
   }
 
   function handleClose(): void {
-    setShowModalProduto(false)
     editarProduto(null)
+    console.log(editarProdutoItem)
+    setShowModalProduto(false)
   }
 
   return (
@@ -28,14 +29,14 @@ function Estoque(): JSX.Element {
           color="secondary"
           variant="contained"
           startIcon={<AddBox />}
-          sx={{ fontSize: '1.2rem' }}
+          sx={{ fontSize: '1rem' }}
           onClick={(): void => handleOpen()}
         >
-          Novo
+          Novo produto
         </Button>
       </Box>
       <ListStock handleOpen={handleOpen} />
-      <ProdutoModal handleClose={handleClose} show={showModalProduto} />
+      <ModalProduto handleClose={handleClose} show={showModalProduto} />
     </>
   )
 }

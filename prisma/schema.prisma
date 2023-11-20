@@ -64,7 +64,7 @@ model Fornecedor {
   entradas   EntradaProduto[]
   endereco   Endereco         @relation(fields: [enderecoId], references: [id])
 }
-1
+
 model Cliente {
   id         Int            @id @default(autoincrement())
   data       DateTime       @default(now())

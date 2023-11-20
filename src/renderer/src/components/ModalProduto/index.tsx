@@ -34,9 +34,16 @@ function ProdutoModal(props: { handleClose: () => void; show: boolean }): JSX.El
       editarProdutoItem.local && setLocal(editarProdutoItem.local)
       setNewItem(false)
     } else {
+      setCodigoOriginal('')
+      setPrecoVenda(0)
+      setDescricao('')
+      setMarca('')
+      setTamanho('')
+      setCor('')
+      setLocal('')
       setNewItem(true)
     }
-  }, [])
+  }, [editarProdutoItem])
 
   function validateForm(): boolean {
     let isValid = true

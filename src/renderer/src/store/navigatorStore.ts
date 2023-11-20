@@ -4,7 +4,7 @@ export type TabsType =
   | 'Principal'
   | 'Estoque'
   | 'Entrada'
-  | 'Vendas'
+  | 'Venda'
   | 'Relatórios'
   | 'Equipe'
   | 'Devolução'
@@ -19,7 +19,7 @@ const rotas = {
   Principal: '/',
   Estoque: '/estoque',
   Entrada: '/entrada',
-  Vendas: '/vendas',
+  Venda: '/venda',
   Relatórios: '/relatorios',
   Equipe: '/equipe',
   Devolução: '/devolucao',

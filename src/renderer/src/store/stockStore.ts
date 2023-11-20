@@ -55,5 +55,7 @@ export const useStockStore = create<StockType>((set) => ({
     set({ produtos: produtos })
   },
   mudarBusca: (busca: 'Código' | 'Descricão'): void => set(() => ({ busca: busca })),
-  editarProduto: (produto: Produto | null): void => set(() => ({ editarProdutoItem: produto })),
+  editarProduto: (produto: Produto | null): void => {
+    set(() => ({ editarProdutoItem: produto }))
+  },
 }))

@@ -33,7 +33,7 @@ function Sidebar(): JSX.Element {
       <SideButton title="Principal" icon={<HomeRounded />} />
       <SideButton title="Relatórios" icon={<LeaderboardRounded />} />
       <SideButton title="Entrada" icon={<LocalShippingRounded />} />
-      <SideButton title="Vendas" icon={<ShoppingCartRounded />} />
+      <SideButton title="Venda" icon={<ShoppingCartRounded />} />
       <SideButton title="Devolução" icon={<ReplyRounded />} />
       <SideButton title="Equipe" icon={<GroupsRounded />} />
       <SideButton title="Estoque" icon={<WarehouseRounded />} />

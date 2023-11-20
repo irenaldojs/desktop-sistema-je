@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import ModalFornecedores from '@renderer/components/ModalFornecedores'
+import StyledButttonLight from '@renderer/components/StyledButtonLight'
 import { useEntryStore } from '@renderer/store/entryStore'
 import { useState } from 'react'
 
@@ -17,14 +18,17 @@ function Entrada(): JSX.Element {
     >
       <Box>
         <Typography marginLeft={2}>Fornecedor</Typography>
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{ width: '100%' }}
-          onClick={(): void => setShowModalForonecedores(true)}
-        >
-          {fornecedor ? fornecedor.nome : 'Nenhum fornecedor selecionado'}
-        </Button>
+        {fornecedor ? (
+          <Typography>{fornecedor.nome}</Typography>
+        ) : (
+          <StyledButttonLight
+            variant="contained"
+            sx={{ width: '100%' }}
+            onClick={(): void => setShowModalForonecedores(true)}
+          >
+            Nenhum fornecedor selecionado
+          </StyledButttonLight>
+        )}
       </Box>
       <ModalFornecedores
         handleClose={(): void => setShowModalForonecedores(false)}

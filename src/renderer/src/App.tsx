@@ -1,9 +1,8 @@
 import Sidebar from './components/Sidebar'
-import { Entrada, Estoque, Principal, Relatorios, Vendas, Equipe } from './pages/index'
+import { Entrada, Estoque, Principal, Relatorios, Equipe, Devolucao, Venda } from './pages/index'
 import { Box, Typography } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useNavigationApp } from './store/navigatorStore'
-import Devolucao from './pages/Devolucao'
 
 function App(): JSX.Element {
   const { tabAtual } = useNavigationApp()
@@ -20,7 +19,7 @@ function App(): JSX.Element {
             <Routes>
               <Route path="relatorios" element={<Relatorios />} />
               <Route path="entrada" element={<Entrada />} />
-              <Route path="vendas" element={<Vendas />} />
+              <Route path="venda" element={<Venda />} />
               <Route path="estoque" element={<Estoque />} />
               <Route path="equipe" element={<Equipe />} />
               <Route path="devolucao" element={<Devolucao />} />
