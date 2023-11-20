@@ -6,6 +6,7 @@ import {
   HomeRounded,
   LeaderboardRounded,
   LocalShippingRounded,
+  ReplyRounded,
   ShoppingCartRounded,
   WarehouseRounded,
 } from '@mui/icons-material'
@@ -33,6 +34,7 @@ function Sidebar(): JSX.Element {
       <SideButton title="Relatórios" icon={<LeaderboardRounded />} />
       <SideButton title="Entrada" icon={<LocalShippingRounded />} />
       <SideButton title="Vendas" icon={<ShoppingCartRounded />} />
+      <SideButton title="Devolução" icon={<ReplyRounded />} />
       <SideButton title="Equipe" icon={<GroupsRounded />} />
       <SideButton title="Estoque" icon={<WarehouseRounded />} />
     </Box>

@@ -5,39 +5,16 @@ import {
   Pagination,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  styled,
-  tableCellClasses,
 } from '@mui/material'
 import { Produto } from '@prisma/client'
+import StyledTableCell from '@renderer/components/StyledTableCell'
+import StyledTableRow from '@renderer/components/StyledTableRow'
 import { DbToFront } from '@renderer/lib/convertMoney'
 import { useStockStore } from '@renderer/store/stockStore'
 import { useState } from 'react'
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-}))
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    //border: 0,
-  },
-}))
 
 function ListStock(props: { handleOpen: () => void }): JSX.Element {
   const { produtos, editarProduto } = useStockStore()
@@ -94,7 +71,7 @@ function ListStock(props: { handleOpen: () => void }): JSX.Element {
                 Estoque
               </StyledTableCell>
               <StyledTableCell sx={{ width: '10%', borderRight: 1 }} align="center">
-                Preço R$
+                R$
               </StyledTableCell>
               <StyledTableCell>Editar</StyledTableCell>
             </TableRow>

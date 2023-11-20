@@ -1,6 +1,13 @@
 import { create } from 'zustand'
 
-export type TabsType = 'Principal' | 'Estoque' | 'Entrada' | 'Vendas' | 'Relatórios' | 'Equipe'
+export type TabsType =
+  | 'Principal'
+  | 'Estoque'
+  | 'Entrada'
+  | 'Vendas'
+  | 'Relatórios'
+  | 'Equipe'
+  | 'Devolução'
 
 type NavigatorStore = {
   tabAtual: TabsType
@@ -15,6 +22,7 @@ const rotas = {
   Vendas: '/vendas',
   Relatórios: '/relatorios',
   Equipe: '/equipe',
+  Devolução: '/devolucao',
 }
 
 export const useNavigationApp = create<NavigatorStore>((set) => ({

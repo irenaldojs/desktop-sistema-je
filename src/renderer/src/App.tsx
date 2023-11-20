@@ -3,6 +3,7 @@ import { Entrada, Estoque, Principal, Relatorios, Vendas, Equipe } from './pages
 import { Box, Typography } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useNavigationApp } from './store/navigatorStore'
+import Devolucao from './pages/Devolucao'
 
 function App(): JSX.Element {
   const { tabAtual } = useNavigationApp()
@@ -22,6 +23,7 @@ function App(): JSX.Element {
               <Route path="vendas" element={<Vendas />} />
               <Route path="estoque" element={<Estoque />} />
               <Route path="equipe" element={<Equipe />} />
+              <Route path="devolucao" element={<Devolucao />} />
               <Route path="*" element={<Principal />} />
             </Routes>
           </Box>
