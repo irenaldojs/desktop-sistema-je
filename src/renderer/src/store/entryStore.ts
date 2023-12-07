@@ -11,6 +11,6 @@ export type EntradaState = {
 export const useEntryStore = create<EntradaState>((set) => ({
   fornecedor: null,
   produtos: [],
-  setFornecedor: (fornecedor) => set({ fornecedor }),
-  setProdutos: (produtos) => set({ produtos }),
+  setFornecedor: (fornecedor): void => set({ fornecedor }),
+  setProdutos: (produtos): void => set({ produtos }),
 }))

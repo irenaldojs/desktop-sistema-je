@@ -4,10 +4,21 @@ import { AddBox } from '@mui/icons-material'
 import ListSuplier from './ListSuplier'
 import { useState } from 'react'
 import { useSuplierStore } from '@renderer/store/suplierStore'
+import ModalFormularioFornecedores from './ModalFormularioFornecedores'
 
 function ModalFornecedores(props: { handleClose: () => void; show: boolean }): JSX.Element {
   const [requisito, setRequisito] = useState('')
-  const { buscarFornecedor } = useSuplierStore()
+  const [showForm, setShowForm] = useState(false)
+  const { buscarFornecedor, setEditarFornecedor } = useSuplierStore()
+
+  function handleShowForm(): void {
+    setShowForm(true)
+  }
+
+  function handleCloseForm(): void {
+    setEditarFornecedor(null)
+    setShowForm(false)
+  }
 
   async function handleSubmit(): Promise<void> {
     await buscarFornecedor(requisito)
@@ -15,7 +26,13 @@ function ModalFornecedores(props: { handleClose: () => void; show: boolean }): J
   }
 
   return (
-    <Modal open={props.show} onClose={props.handleClose}>
+    <Modal
+      open={props.show}
+      onClose={(): void => {
+        handleCloseForm()
+        props.handleClose()
+      }}
+    >
       <Box
         display={'flex'}
         flexDirection={'column'}
@@ -50,11 +67,13 @@ function ModalFornecedores(props: { handleClose: () => void; show: boolean }): J
             color="secondary"
             startIcon={<AddBox />}
             sx={{ width: '120px' }}
+            onClick={handleShowForm}
           >
             Novo
           </Button>
         </Box>
-        <ListSuplier />
+        <ListSuplier showForm={handleShowForm} />
+        <ModalFormularioFornecedores handleClose={handleCloseForm} show={showForm} />
       </Box>
     </Modal>
   )

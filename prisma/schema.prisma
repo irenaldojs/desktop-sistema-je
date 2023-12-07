@@ -78,7 +78,7 @@ model Cliente {
 model Endereco {
   id           Int          @id @default(autoincrement())
   rua          String?
-  numero       Int?
+  numero       String?
   bairro       String?
   cidade       String?
   estado       String?

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import ModalFornecedores from '@renderer/components/ModalFornecedores'
 import StyledButttonLight from '@renderer/components/StyledButtonLight'
 import { useEntryStore } from '@renderer/store/entryStore'
@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 function Entrada(): JSX.Element {
   const { fornecedor } = useEntryStore()
-  const [showModalForonecedores, setShowModalForonecedores] = useState(false)
+  const [showModalFornecedores, setShowModalFornecedores] = useState(false)
 
   return (
     <Box
@@ -24,15 +24,15 @@ function Entrada(): JSX.Element {
           <StyledButttonLight
             variant="contained"
             sx={{ width: '100%' }}
-            onClick={(): void => setShowModalForonecedores(true)}
+            onClick={(): void => setShowModalFornecedores(true)}
           >
             Nenhum fornecedor selecionado
           </StyledButttonLight>
         )}
       </Box>
       <ModalFornecedores
-        handleClose={(): void => setShowModalForonecedores(false)}
-        show={showModalForonecedores}
+        handleClose={(): void => setShowModalFornecedores(false)}
+        show={showModalFornecedores}
       />
     </Box>
   )

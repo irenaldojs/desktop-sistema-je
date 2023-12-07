@@ -257,7 +257,7 @@ function ProdutoModal(props: { handleClose: () => void; show: boolean }): JSX.El
               Cancelar
             </Button>
             <Button variant="contained" type="submit" color="secondary" onClick={handleSubmit}>
-              Cadastrar
+              {newItem ? 'Cadastrar' : 'Salvar'}
             </Button>
           </Box>
         </Box>

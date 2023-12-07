@@ -8,7 +8,7 @@ import { useStockStore } from '@renderer/store/stockStore'
 import ModalProduto from '@renderer/components/ModalProduto'
 
 function Estoque(): JSX.Element {
-  const { editarProduto, editarProdutoItem } = useStockStore()
+  const { editarProduto } = useStockStore()
   const [showModalProduto, setShowModalProduto] = useState(false)
 
   function handleOpen(): void {
@@ -17,7 +17,6 @@ function Estoque(): JSX.Element {
 
   function handleClose(): void {
     editarProduto(null)
-    console.log(editarProdutoItem)
     setShowModalProduto(false)
   }
 

@@ -9,13 +9,13 @@ import {
   TableRow,
 } from '@mui/material'
 import StyledTableCell from '../StyledTableCell'
-import { useSuplierStore } from '@renderer/store/suplierStore'
+import { EnderecoType, useSuplierStore } from '@renderer/store/suplierStore'
 import { Fornecedor } from '@prisma/client'
 import { useState } from 'react'
 import StyledTableRow from '../StyledTableRow'
 import { CheckRounded, Edit } from '@mui/icons-material'
 
-function ListSuplier(): JSX.Element {
+function ListSuplier(props: { showForm: () => void }): JSX.Element {
   const { fornecedores } = useSuplierStore()
   const itensForPage = 5
   const [page, setPage] = useState(1)
@@ -28,6 +28,51 @@ function ListSuplier(): JSX.Element {
     const startIndex = (pagina - 1) * itensPorPagina
     const endIndex = startIndex + itensPorPagina
     return listaProdutos.slice(startIndex, endIndex)
+  }
+  const { setEditarFornecedor } = useSuplierStore()
+
+  async function handleEdit(fornecedor: Fornecedor): Promise<void> {
+    let endereco: EnderecoType = {
+      rua: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+    }
+
+    await window.api.prisma.endereco
+      .findFirst({
+        where: {
+          id: fornecedor.enderecoId,
+        },
+      })
+      .then((data) => {
+        if (data) {
+          endereco = {
+            rua: data.rua ?? '',
+            numero: data.numero ?? '',
+            bairro: data.bairro ?? '',
+            cidade: data.cidade ?? '',
+            estado: data.estado ?? '',
+          }
+        }
+      })
+
+    setEditarFornecedor({
+      id: fornecedor.id,
+      nome: fornecedor.nome ?? '',
+      telefone: fornecedor.telefone ?? '',
+      endereco: {
+        rua: endereco.rua ?? '',
+        numero: endereco.numero ?? '',
+        bairro: endereco.bairro ?? '',
+        cidade: endereco.cidade ?? '',
+        estado: endereco.estado ?? '',
+      },
+    })
+
+    console.log(endereco)
+    props.showForm()
   }
 
   return (
@@ -75,7 +120,12 @@ function ListSuplier(): JSX.Element {
                   {f.telefone}
                 </StyledTableCell>
                 <StyledTableCell align="center" sx={{ borderRight: 1 }}>
-                  <Button variant="contained" size="small" color="secondary">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    onClick={(): Promise<void> => handleEdit(f)}
+                  >
                     <Edit fontSize="small" />
                   </Button>
                 </StyledTableCell>
