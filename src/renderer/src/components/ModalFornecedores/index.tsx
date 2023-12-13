@@ -18,6 +18,8 @@ function ModalFornecedores(props: { handleClose: () => void; show: boolean }): J
   function handleCloseForm(): void {
     setEditarFornecedor(null)
     setShowForm(false)
+
+    console.log('fechar form')
   }
 
   async function handleSubmit(): Promise<void> {
@@ -72,7 +74,7 @@ function ModalFornecedores(props: { handleClose: () => void; show: boolean }): J
             Novo
           </Button>
         </Box>
-        <ListSuplier showForm={handleShowForm} />
+        <ListSuplier handleShowForm={handleShowForm} handleCloseForm={props.handleClose} />
         <ModalFormularioFornecedores handleClose={handleCloseForm} show={showForm} />
       </Box>
     </Modal>

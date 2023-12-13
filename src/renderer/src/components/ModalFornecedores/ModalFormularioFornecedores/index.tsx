@@ -78,7 +78,6 @@ function ModalFormularioFornecedores(props: {
           },
         },
       })
-      props.handleClose()
     } else if (validateForm() && !newItem) {
       await window.api.prisma.fornecedor.update({
         where: {
@@ -98,8 +97,9 @@ function ModalFormularioFornecedores(props: {
           },
         },
       })
-      props.handleClose()
     }
+
+    props.handleClose()
   }
 
   return (

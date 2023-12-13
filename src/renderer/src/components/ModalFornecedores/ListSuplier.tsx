@@ -14,9 +14,14 @@ import { Fornecedor } from '@prisma/client'
 import { useState } from 'react'
 import StyledTableRow from '../StyledTableRow'
 import { CheckRounded, Edit } from '@mui/icons-material'
+import { useEntryStore } from '@renderer/store/entryStore'
 
-function ListSuplier(props: { showForm: () => void }): JSX.Element {
-  const { fornecedores } = useSuplierStore()
+function ListSuplier(props: {
+  handleShowForm: () => void
+  handleCloseForm: () => void
+}): JSX.Element {
+  const { fornecedores, setEditarFornecedor } = useSuplierStore()
+  const { setFornecedor } = useEntryStore()
   const itensForPage = 5
   const [page, setPage] = useState(1)
 
@@ -29,7 +34,6 @@ function ListSuplier(props: { showForm: () => void }): JSX.Element {
     const endIndex = startIndex + itensPorPagina
     return listaProdutos.slice(startIndex, endIndex)
   }
-  const { setEditarFornecedor } = useSuplierStore()
 
   async function handleEdit(fornecedor: Fornecedor): Promise<void> {
     let endereco: EnderecoType = {
@@ -71,8 +75,7 @@ function ListSuplier(props: { showForm: () => void }): JSX.Element {
       },
     })
 
-    console.log(endereco)
-    props.showForm()
+    props.handleShowForm()
   }
 
   return (
@@ -130,7 +133,15 @@ function ListSuplier(props: { showForm: () => void }): JSX.Element {
                   </Button>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <Button variant="contained" size="small" color="secondary">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    onClick={(): void => {
+                      setFornecedor(f)
+                      props.handleCloseForm()
+                    }}
+                  >
                     <CheckRounded fontSize="small" />
                   </Button>
                 </StyledTableCell>
