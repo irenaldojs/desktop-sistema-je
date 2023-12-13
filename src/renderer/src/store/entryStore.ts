@@ -1,16 +1,23 @@
-import { Fornecedor, ProdutoItem } from '@prisma/client'
+import { Fornecedor, Produto } from '@prisma/client'
 import { create } from 'zustand'
+
+export type ProdutoItemType = {
+  produto: Produto
+  quantidade: number
+}
 
 export type EntradaState = {
   fornecedor: Fornecedor | null
-  produtos: ProdutoItem[]
+  produtos: ProdutoItemType[]
   setFornecedor: (fornecedores: Fornecedor) => void
-  setProdutos: (produtos: ProdutoItem[]) => void
+  AddProduto: (produto: ProdutoItemType) => void
 }
 
 export const useEntryStore = create<EntradaState>((set) => ({
   fornecedor: null,
   produtos: [],
   setFornecedor: (fornecedor): void => set({ fornecedor }),
-  setProdutos: (produtos): void => set({ produtos }),
+
+  AddProduto: (produto): void =>
+    set({ produtos: [...useEntryStore.getState().produtos, { ...produto }] }),
 }))

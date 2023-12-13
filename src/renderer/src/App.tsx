@@ -11,11 +11,11 @@ function App(): JSX.Element {
     <BrowserRouter>
       <Box display="flex" height={'100vh'}>
         <Sidebar />
-        <Box flex="flex" flexDirection="row" width="100%" paddingX={2}>
+        <Box flex="flex" flexDirection="row" width="100%" paddingX={2} height={'100vh'}>
           <Typography variant="h2" align="center" fontStyle={'italic'}>
             {tabAtual}
           </Typography>
-          <Box display="flex" flexDirection="column" gap={2} height={'80vh'}>
+          <Box display="flex" flexDirection="column" gap={2} height={'85vh'}>
             <Routes>
               <Route path="relatorios" element={<Relatorios />} />
               <Route path="entrada" element={<Entrada />} />
