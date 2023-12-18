@@ -1,4 +1,4 @@
-import { AddBox } from '@mui/icons-material'
+import { AddBox, LocalShipping } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -49,13 +49,19 @@ function Entrada(): JSX.Element {
             color="secondary"
             variant="contained"
             onClick={(): void => setShowModalFornecedores(true)}
-            startIcon={<AddBox />}
+            startIcon={<LocalShipping />}
           >
             Selecionar
           </Button>
         </Box>
       </Box>
-      <Box height={'100%'} display="flex" flexDirection="column" justifyContent="space-between">
+      <Box
+        height={'100%'}
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        gap={1}
+      >
         <TableContainer
           sx={{
             borderRadius: 2,
@@ -94,11 +100,16 @@ function Entrada(): JSX.Element {
             </TableBody>
           </Table>
         </TableContainer>
-        <Box display="flex" flexDirection="row" justifyContent="end" gap={1} paddingX={1}>
-          <Typography variant="h5">Total </Typography>
-          <Typography variant="h4" align="right" fontWeight="bold" sx={{ minWidth: '150px' }}>
-            R$ 0,00
-          </Typography>
+        <Box display="flex" flexDirection="row" justifyContent="space-between" gap={1} paddingX={1}>
+          <Button color="secondary" variant="contained" startIcon={<AddBox />}>
+            Adicionar
+          </Button>
+          <Box display="flex">
+            <Typography variant="h5">Total </Typography>
+            <Typography variant="h4" align="right" fontWeight="bold" sx={{ minWidth: '150px' }}>
+              R$ 0,00
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <ModalFornecedores
