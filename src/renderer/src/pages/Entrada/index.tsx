@@ -10,13 +10,12 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import { Produto } from '@prisma/client'
 import ModalFornecedores from '@renderer/components/ModalFornecedores'
 import ModalListaProdutos from '@renderer/components/ModalListaProdutos'
 import StyledTableCell from '@renderer/components/StyledTableCell'
 import StyledTableRow from '@renderer/components/StyledTableRow'
 import { DbToFront } from '@renderer/lib/convertMoney'
-import { useEntryStore } from '@renderer/store/entryStore'
+import { ProdutoItemType, useEntryStore } from '@renderer/store/entryStore'
 import { useState } from 'react'
 
 function Entrada(): JSX.Element {
@@ -24,7 +23,7 @@ function Entrada(): JSX.Element {
   const [showModalFornecedores, setShowModalFornecedores] = useState(false)
   const [showModalProdutos, setShowModalProdutos] = useState(false)
 
-  function handleInsert(produto: Produto): void {
+  function handleInsert(produto: ProdutoItemType): void {
     AddProdutoEntry(produto)
   }
 

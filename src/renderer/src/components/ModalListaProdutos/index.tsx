@@ -16,10 +16,11 @@ import StyledTableCell from '../StyledTableCell'
 import StyledTableRow from '../StyledTableRow'
 import { Produto } from '@prisma/client'
 import { DbToFront } from '@renderer/lib/convertMoney'
+import { ProdutoItemType } from '@renderer/store/entryStore'
 
 type ModalListPordutosType = {
   handleClose: () => void
-  handleInsert: (produto: Produto) => void
+  handleInsert: (produto: ProdutoItemType) => void
   show: boolean
 }
 
@@ -28,6 +29,9 @@ function ModalListaProdutos(props: ModalListPordutosType): JSX.Element {
   const [listaProdutos, setListaProdutos] = useState<Array<Produto> | []>([])
   const [page, setPage] = useState(1)
   const itensForPage = 11
+  const [showModalInsert, setShowModalInsert] = useState(false)
+  const [produto, setProduto] = useState<Produto | null>(null)
+  const [quantidade, setQuantidade] = useState<number>(1)
 
   async function handleSubmit(): Promise<void> {
     const lista = await window.api.prisma.produto.findMany({
@@ -62,6 +66,7 @@ function ModalListaProdutos(props: ModalListPordutosType): JSX.Element {
     const endIndex = startIndex + itensPorPagina
     return listaProdutos.slice(startIndex, endIndex)
   }
+
   return (
     <Modal
       open={props.show}
@@ -190,7 +195,10 @@ function ModalListaProdutos(props: ModalListPordutosType): JSX.Element {
                       variant="contained"
                       size="small"
                       color="secondary"
-                      onClick={(): void => props.handleInsert(p)}
+                      onClick={(): void => {
+                        setProduto(p)
+                        setShowModalInsert(true)
+                      }}
                       sx={{ minWidth: 25, minHeight: 20, padding: 0 }}
                     >
                       <AddRounded fontSize="small" />
@@ -209,6 +217,58 @@ function ModalListaProdutos(props: ModalListPordutosType): JSX.Element {
           count={Math.ceil(listaProdutos.length / itensForPage)}
           onChange={(_, p): void => setPage(p)}
         />
+        <Modal open={showModalInsert} onClose={(): void => setShowModalInsert(false)}>
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={2}
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              border: '1px solid #000',
+              borderRadius: '10px',
+              p: 4,
+              bgcolor: 'background.default',
+            }}
+          >
+            <StyledTextField
+              label="Quantidade"
+              variant="filled"
+              type="string"
+              value={quantidade}
+              onChange={(event): void => setQuantidade(Number(event.target.value))}
+            />
+            <Box display={'flex'} gap={2}>
+              <Button
+                variant="contained"
+                onClick={(): void => {
+                  setShowModalInsert(false)
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={(): void => {
+                  if (!produto || quantidade <= 0) return
+                  const item: ProdutoItemType = { produto: produto, quantidade: Number(quantidade) }
+                  console.log(item)
+                  props.handleInsert(item)
+
+                  setProduto(null)
+                  setShowModalInsert(false)
+                  setQuantidade(1)
+                }}
+              >
+                Adicionar
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
       </Box>
     </Modal>
   )
