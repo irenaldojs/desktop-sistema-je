@@ -1,31 +1,23 @@
 import Sidebar from './components/Sidebar'
 import { Entrada, Estoque, Principal, Relatorios, Equipe, Devolucao, Venda } from './pages/index'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useNavigationApp } from './store/navigatorStore'
 
 function App(): JSX.Element {
-  const { tabAtual } = useNavigationApp()
-
   return (
     <BrowserRouter>
-      <Box display="flex" height={'100vh'}>
+      <Box display="flex" height={'100vh'} flexDirection={'row'}>
         <Sidebar />
-        <Box flex="flex" flexDirection="row" width="100%" paddingX={2} height={'100vh'}>
-          <Typography variant="h2" align="center" fontStyle={'italic'}>
-            {tabAtual}
-          </Typography>
-          <Box display="flex" flexDirection="column" gap={2} height={'85vh'}>
-            <Routes>
-              <Route path="relatorios" element={<Relatorios />} />
-              <Route path="entrada" element={<Entrada />} />
-              <Route path="venda" element={<Venda />} />
-              <Route path="estoque" element={<Estoque />} />
-              <Route path="equipe" element={<Equipe />} />
-              <Route path="devolucao" element={<Devolucao />} />
-              <Route path="*" element={<Principal />} />
-            </Routes>
-          </Box>
+        <Box flex="flex" flexDirection="column" width="100%" padding={2} gap={2}>
+          <Routes>
+            <Route path="relatorios" element={<Relatorios />} />
+            <Route path="entrada" element={<Entrada />} />
+            <Route path="venda" element={<Venda />} />
+            <Route path="estoque" element={<Estoque />} />
+            <Route path="equipe" element={<Equipe />} />
+            <Route path="devolucao" element={<Devolucao />} />
+            <Route path="*" element={<Principal />} />
+          </Routes>
         </Box>
       </Box>
     </BrowserRouter>

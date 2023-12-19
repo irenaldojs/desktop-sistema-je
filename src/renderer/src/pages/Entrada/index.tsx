@@ -10,15 +10,31 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import { Produto } from '@prisma/client'
 import ModalFornecedores from '@renderer/components/ModalFornecedores'
+import ModalListaProdutos from '@renderer/components/ModalListaProdutos'
 import StyledTableCell from '@renderer/components/StyledTableCell'
 import StyledTableRow from '@renderer/components/StyledTableRow'
+import { DbToFront } from '@renderer/lib/convertMoney'
 import { useEntryStore } from '@renderer/store/entryStore'
 import { useState } from 'react'
 
 function Entrada(): JSX.Element {
-  const { fornecedor, produtos } = useEntryStore()
+  const { fornecedor, produtos, AddProdutoEntry } = useEntryStore()
   const [showModalFornecedores, setShowModalFornecedores] = useState(false)
+  const [showModalProdutos, setShowModalProdutos] = useState(false)
+
+  function handleInsert(produto: Produto): void {
+    AddProdutoEntry(produto)
+  }
+
+  function returnTotal(): number {
+    let total = 0
+    produtos.forEach((item) => {
+      if (item.produto.precoVenda) total += item.produto.precoVenda * item.quantidade
+    })
+    return total
+  }
 
   return (
     <Box
@@ -78,36 +94,64 @@ function Entrada(): JSX.Element {
                 <StyledTableCell sx={{ width: '50%', borderRight: 1 }} align="center">
                   Descrição
                 </StyledTableCell>
-                <StyledTableCell sx={{ borderRight: 1 }} align="center">
+                <StyledTableCell
+                  sx={{ borderRight: 1, width: '5%', maxWidth: '5%' }}
+                  align="center"
+                >
                   Quantidade
                 </StyledTableCell>
-                <StyledTableCell sx={{ borderRight: 1 }} align="center">
+                <StyledTableCell
+                  sx={{ borderRight: 1, width: '10%', maxWidth: '10%' }}
+                  align="center"
+                >
                   Unitário
                 </StyledTableCell>
-                <StyledTableCell align="center">Total</StyledTableCell>
+                <StyledTableCell sx={{ width: '10%', maxWidth: '10%' }} align="center">
+                  Total
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {produtos.map((item) => (
                 <StyledTableRow key={item.produto.id}>
-                  <StyledTableCell>{item.produto.id}</StyledTableCell>
-                  <StyledTableCell>{item.produto.descricao}</StyledTableCell>
-                  <StyledTableCell>{item.quantidade}</StyledTableCell>
-                  <StyledTableCell>{}</StyledTableCell>
-                  <StyledTableCell>{}</StyledTableCell>
+                  <StyledTableCell sx={{ borderRight: 1 }}>{item.produto.id}</StyledTableCell>
+                  <StyledTableCell sx={{ borderRight: 1 }}>
+                    {item.produto.descricao}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    sx={{ borderRight: 1, width: '5%', maxWidth: '5%' }}
+                    align="right"
+                  >
+                    {item.quantidade}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    sx={{ borderRight: 1, width: '10%', maxWidth: '10%' }}
+                    align="right"
+                  >
+                    {item.produto.precoVenda && DbToFront(item.produto.precoVenda)}
+                  </StyledTableCell>
+                  <StyledTableCell sx={{ width: '10%', maxWidth: '10%' }} align="right">
+                    {item.produto.precoVenda &&
+                      DbToFront(item.produto.precoVenda * item.quantidade)}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         <Box display="flex" flexDirection="row" justifyContent="space-between" gap={1} paddingX={1}>
-          <Button color="secondary" variant="contained" startIcon={<AddBox />}>
+          <Button
+            color="secondary"
+            variant="contained"
+            startIcon={<AddBox />}
+            onClick={(): void => setShowModalProdutos(true)}
+          >
             Adicionar
           </Button>
           <Box display="flex">
             <Typography variant="h5">Total </Typography>
             <Typography variant="h4" align="right" fontWeight="bold" sx={{ minWidth: '150px' }}>
-              R$ 0,00
+              {DbToFront(returnTotal())}
             </Typography>
           </Box>
         </Box>
@@ -115,6 +159,11 @@ function Entrada(): JSX.Element {
       <ModalFornecedores
         handleClose={(): void => setShowModalFornecedores(false)}
         show={showModalFornecedores}
+      />
+      <ModalListaProdutos
+        handleClose={(): void => setShowModalProdutos(false)}
+        handleInsert={handleInsert}
+        show={showModalProdutos}
       />
     </Box>
   )

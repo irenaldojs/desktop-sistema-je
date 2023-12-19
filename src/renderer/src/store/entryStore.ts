@@ -10,7 +10,7 @@ export type EntradaState = {
   fornecedor: Fornecedor | null
   produtos: ProdutoItemType[]
   setFornecedor: (fornecedores: Fornecedor) => void
-  AddProduto: (produto: ProdutoItemType) => void
+  AddProdutoEntry: (produto: Produto) => void
 }
 
 export const useEntryStore = create<EntradaState>((set) => ({
@@ -18,6 +18,16 @@ export const useEntryStore = create<EntradaState>((set) => ({
   produtos: [],
   setFornecedor: (fornecedor): void => set({ fornecedor }),
 
-  AddProduto: (produto): void =>
-    set({ produtos: [...useEntryStore.getState().produtos, { ...produto }] }),
+  AddProdutoEntry: (produto): void => {
+    if (!useEntryStore.getState().produtos.filter((item) => item.produto.id === produto.id).length)
+      set({ produtos: [...useEntryStore.getState().produtos, { quantidade: 1, produto }] })
+    else
+      set({
+        produtos: useEntryStore
+          .getState()
+          .produtos.map((item) =>
+            item.produto.id === produto.id ? { ...item, quantidade: item.quantidade + 1 } : item,
+          ),
+      })
+  },
 }))

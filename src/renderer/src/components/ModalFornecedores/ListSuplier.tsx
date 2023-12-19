@@ -54,7 +54,7 @@ function ListSuplier(props: {
         if (data) {
           endereco = {
             rua: data.rua ?? '',
-            numero: data.numero ?? '',
+            numero: data.numero?.toString() ?? '',
             bairro: data.bairro ?? '',
             cidade: data.cidade ?? '',
             estado: data.estado ?? '',

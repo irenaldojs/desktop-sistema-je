@@ -21,7 +21,7 @@ function Estoque(): JSX.Element {
   }
 
   return (
-    <>
+    <Box height={'100%'} display={'flex'} flexDirection={'column'} gap={1}>
       <Box display="flex" flexDirection="row" width={'100%'} gap={2}>
         <SearchStockBar />
         <Button
@@ -36,7 +36,7 @@ function Estoque(): JSX.Element {
       </Box>
       <ListStock handleOpen={handleOpen} />
       <ModalProduto handleClose={handleClose} show={showModalProduto} />
-    </>
+    </Box>
   )
 }
 

@@ -18,7 +18,7 @@ import { useState } from 'react'
 
 function ListStock(props: { handleOpen: () => void }): JSX.Element {
   const { produtos, editarProduto } = useStockStore()
-  const itensForPage = 10
+  const itensForPage = 12
   const [page, setPage] = useState(1)
 
   function handleEdit(produto: Produto): void {
@@ -40,10 +40,10 @@ function ListStock(props: { handleOpen: () => void }): JSX.Element {
     <Box
       display="flex"
       flexDirection="column"
+      flexGrow={1}
       gap={2}
       alignItems={'center'}
       justifyContent={'space-between'}
-      height={'100%'}
     >
       <TableContainer sx={{ borderRadius: 2, backgroundColor: 'white' }}>
         <Table size="small" sx={{ borderCollapse: 'separate' }} aria-label="a products table">
