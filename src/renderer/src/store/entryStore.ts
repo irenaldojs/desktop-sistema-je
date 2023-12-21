@@ -19,8 +19,24 @@ export const useEntryStore = create<EntradaState>((set) => ({
   setFornecedor: (fornecedor): void => set({ fornecedor }),
 
   AddProdutoEntry: (produto): void => {
-    set((state) => ({
-      produtos: [...state.produtos, produto],
-    }))
+    set((state) => {
+      const index = state.produtos.findIndex((item) => item.produto.id === produto.produto.id)
+      if (index !== -1) {
+        return {
+          produtos: [
+            ...state.produtos.slice(0, index),
+            {
+              ...state.produtos[index],
+              quantidade: state.produtos[index].quantidade + produto.quantidade,
+            },
+            ...state.produtos.slice(index + 1),
+          ],
+        }
+      } else {
+        return {
+          produtos: [...state.produtos, { ...produto, quantidade: 1 }],
+        }
+      }
+    })
   },
 }))

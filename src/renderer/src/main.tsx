@@ -11,9 +11,7 @@ import { ThemeProvider } from '@emotion/react'
 import { Theme } from './theme'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <ThemeProvider theme={Theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+  <ThemeProvider theme={Theme}>
+    <App />
+  </ThemeProvider>,
 )
