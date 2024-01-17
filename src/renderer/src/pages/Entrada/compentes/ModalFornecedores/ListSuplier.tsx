@@ -8,13 +8,13 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import StyledTableCell from '../StyledTableCell'
 import { EnderecoType, useSuplierStore } from '@renderer/store/suplierStore'
 import { Fornecedor } from '@prisma/client'
 import { useState } from 'react'
-import StyledTableRow from '../StyledTableRow'
 import { CheckRounded, Edit } from '@mui/icons-material'
 import { useEntryStore } from '@renderer/store/entryStore'
+import StyledTableCell from '@renderer/components/StyledTableCell'
+import StyledTableRow from '@renderer/components/StyledTableRow'
 
 function ListSuplier(props: {
   handleShowForm: () => void

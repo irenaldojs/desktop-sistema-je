@@ -19,6 +19,7 @@ function DraggableDialog(props: DraggableDialogProps): JSX.Element {
     <Dialog
       open={open}
       onClose={onClose}
+      aria-labelledby={handleSelector}
       PaperComponent={PaperComponent(handleSelector) as unknown as React.ComponentType<unknown>}
       fullWidth
       maxWidth={maxWidth ?? 'sm'}

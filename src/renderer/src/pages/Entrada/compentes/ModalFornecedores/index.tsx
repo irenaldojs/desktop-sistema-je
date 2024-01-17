@@ -1,5 +1,5 @@
 import { Box, Button, Modal } from '@mui/material'
-import StyledTextField from '../StyledTextField'
+import StyledTextField from '../../../../components/StyledTextField'
 import { AddBox } from '@mui/icons-material'
 import ListSuplier from './ListSuplier'
 import { useState } from 'react'
